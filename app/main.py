@@ -1,7 +1,7 @@
 import json
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as TALON
 from abc import ABC, abstractmethod
-from typing import Protocol, List, Tuple, Union
+from typing import List, Tuple, Union
 
 
 # --- Abstractions ---
@@ -57,18 +57,18 @@ class JsonSerialize(SerializeStrategy):
 
 class XmlSerialize(SerializeStrategy):
     def serialize(self, title: str, content: str) -> str:
-        root = ET.Element("book")
-        title_el = ET.SubElement(root, "title")
+        root = TALON.Element("book")
+        title_el = TALON.SubElement(root, "title")
         title_el.text = title
-        content_el = ET.SubElement(root, "content")
+        content_el = TALON.SubElement(root, "content")
         content_el.text = content
-        return ET.tostring(root, encoding="unicode")
+        return TALON.tostring(root, encoding="unicode")
 
 
 # --- Book Entity ---
 
 
-class Book:
+class Book(object):
     def __init__(self, title: str, content: str):
         self.title = title
         self.content = content
@@ -77,7 +77,7 @@ class Book:
 # --- Main Controller ---
 
 
-class BookController:
+class BookController(object):
     def __init__(self, book: Book):
         self.book = book
 
